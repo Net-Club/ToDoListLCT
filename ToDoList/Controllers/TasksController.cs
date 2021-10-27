@@ -21,6 +21,15 @@ namespace ToDoList.Controllers
             return View(tasks.ToList());
         }
 
+        public ActionResult IndexUser()
+        {
+            var tasks = db.Tasks.Include(t => t.Status).Include(t => t.Users);
+            if (tasks.Where(t => t.Users.Name == UsersController.ActiveUser.Name).ToList() == null)
+                return View();
+            else
+                return View(tasks.Where(t => t.Users.Name == UsersController.ActiveUser.Name).ToList());
+        }
+
         // GET: Tasks/Details/5
         public ActionResult Details(int? id)
         {

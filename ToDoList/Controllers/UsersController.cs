@@ -55,7 +55,10 @@ namespace ToDoList.Controllers
             {
                 db.Users.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Tasks");
+                if (user.Role == "Admin")
+                    return RedirectToAction("Index", "Tasks");
+                else
+                    return RedirectToAction("IndexUser", "Tasks");
             }
 
             return View(user);
@@ -79,7 +82,10 @@ namespace ToDoList.Controllers
                 if (u.Mail == user.Mail && u.Password == user.Password)
                 {
                     ActiveUser = u;
-                    return RedirectToAction("Index", "Tasks");
+                    if (ActiveUser.Role == "Admin")
+                        return RedirectToAction("Index", "Tasks");
+                    else
+                        return RedirectToAction("IndexUser", "Tasks");
                 }
             }
 
