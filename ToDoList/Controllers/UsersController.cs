@@ -55,6 +55,7 @@ namespace ToDoList.Controllers
             {
                 db.Users.Add(user);
                 db.SaveChanges();
+                ActiveUser = user;
                 if (user.Role == "Admin")
                     return RedirectToAction("Index", "Tasks");
                 else
