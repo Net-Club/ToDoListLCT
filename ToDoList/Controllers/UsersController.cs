@@ -53,9 +53,14 @@ namespace ToDoList.Controllers
             //ssfasfasfasfas
             if (ModelState.IsValid)
             {
+
                 db.Users.Add(user);
+                ActiveUser = user;
                 db.SaveChanges();
-                return RedirectToAction("Index", "Tasks");
+                if (user.Role == "Admin")
+                    return RedirectToAction("Index", "Tasks");
+                else
+                    return RedirectToAction("IndexUser", "Tasks");
             }
 
             return View(user);
@@ -73,13 +78,16 @@ namespace ToDoList.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogIn([Bind(Include = "Mail,Password")] Users user)
         {
-            ActiveUser = null;
+            
             foreach (Users u in db.Users)
             {
                 if (u.Mail == user.Mail && u.Password == user.Password)
                 {
                     ActiveUser = u;
-                    return RedirectToAction("Index", "Tasks");
+                    if (ActiveUser.Role == "Admin")
+                        return RedirectToAction("Index", "Tasks");
+                    else
+                        return RedirectToAction("IndexUser", "Tasks");
                 }
             }
 
