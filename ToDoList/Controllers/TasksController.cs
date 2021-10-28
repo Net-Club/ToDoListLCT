@@ -20,6 +20,7 @@ namespace ToDoList.Controllers
             var tasks = db.Tasks.Include(t => t.Status).Include(t => t.Users);
             return View(tasks.ToList());
         }
+
         public ActionResult IndexUser()
         {
             var tasks = db.Tasks.Include(t => t.Status).Include(t => t.Users);
