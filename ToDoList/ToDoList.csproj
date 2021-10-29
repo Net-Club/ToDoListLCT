@@ -199,6 +199,7 @@
     <Content Include="Views\Status\Index.cshtml" />
     <Content Include="Views\Users\LogIn.cshtml" />
     <Content Include="Views\Tasks\IndexUser.cshtml" />
+    <Content Include="Views\Tasks\StatusCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

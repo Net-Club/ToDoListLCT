@@ -53,6 +53,8 @@ namespace ToDoList.Controllers
             return View();
         }
 
+        
+
         // POST: Tasks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -72,6 +74,29 @@ namespace ToDoList.Controllers
             return View(tasks);
         }
 
+
+        public ActionResult StatusCreate()
+        {
+            return View();
+        }
+
+        // POST: Status/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult StatusCreate([Bind(Include = "Id,Name")] Status status)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Status.Add(status);
+                db.SaveChanges();
+                return RedirectToAction("IndexUser","Tasks");
+            }
+
+            return View(status);
+        }
+
         // GET: Tasks/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -89,6 +114,22 @@ namespace ToDoList.Controllers
             return View(tasks);
         }
 
+        public ActionResult EditStatus(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Tasks tasks = db.Tasks.Find(id);
+            if (tasks == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Status_id = new SelectList(db.Status, "Id", "Name", tasks.Status_id);
+            ViewBag.User_id = new SelectList(db.Users, "Id", "Name", tasks.User_id);
+            return RedirectToAction("Edit", "Tasks"); ;
+        }
+
         // POST: Tasks/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -100,11 +141,11 @@ namespace ToDoList.Controllers
             {
                 db.Entry(tasks).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexUser");
             }
             ViewBag.Status_id = new SelectList(db.Status, "Id", "Name", tasks.Status_id);
             ViewBag.User_id = new SelectList(db.Users, "Id", "Name", tasks.User_id);
-            return View(tasks);
+            return View("IndexUser");
         }
 
         // GET: Tasks/Delete/5

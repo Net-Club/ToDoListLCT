@@ -28,24 +28,29 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Users.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeadLine)
-            </td>
-        </tr>
-    }
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Users.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DeadLine)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
 
+    </td>
+    <td>@Html.ActionLink("Create New Status", "StatusCreate")</td>
+    
+</tr>
+    }
 
 </table>
