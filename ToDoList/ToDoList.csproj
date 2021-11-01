@@ -200,6 +200,7 @@
     <Content Include="Views\Users\LogIn.cshtml" />
     <Content Include="Views\Tasks\IndexUser.cshtml" />
     <Content Include="Views\Tasks\StatusCreate.cshtml" />
+    <Content Include="Views\Tasks\EditAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

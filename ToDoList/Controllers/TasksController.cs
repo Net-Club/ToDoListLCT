@@ -113,6 +113,37 @@ namespace ToDoList.Controllers
             ViewBag.User_id = new SelectList(db.Users, "Id", "Name", tasks.User_id);
             return View(tasks);
         }
+        public ActionResult EditAdmin(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Tasks tasks = db.Tasks.Find(id);
+            if (tasks == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Status_id = new SelectList(db.Status, "Id", "Name", tasks.Status_id);
+            ViewBag.User_id = new SelectList(db.Users, "Id", "Name", tasks.User_id);
+            return View(tasks);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditAdmin([Bind(Include = "Id,Title,Description,User_id,Status_id,DeadLine")] Tasks tasks)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(tasks).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.Status_id = new SelectList(db.Status, "Id", "Name", tasks.Status_id);
+            ViewBag.User_id = new SelectList(db.Users, "Id", "Name", tasks.User_id);
+            return View("Index");
+        }
+
 
         public ActionResult EditStatus(int? id)
         {
@@ -129,6 +160,8 @@ namespace ToDoList.Controllers
             ViewBag.User_id = new SelectList(db.Users, "Id", "Name", tasks.User_id);
             return RedirectToAction("Edit", "Tasks"); ;
         }
+
+       
 
         // POST: Tasks/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
