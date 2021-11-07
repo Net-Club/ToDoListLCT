@@ -1,7 +1,36 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "Typescript";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+    <link href="~/Content/styles.css" rel="stylesheet" type="text/css" />
+    <div id="content">
+        <button class="btn btn-default" onclick="https://localhost:44378/Tasks/Index">Tasks</button>
+        <h2 id="msgText"></h2>
+        <div class="row">
+            <div class="col s12 m6">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Task</span>
+                        
+                        <p>
+                            Task Description
 
-<p>Use this area to provide additional information.</p>
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <a href="https://localhost:44378/Tasks/Edit/1">Edit</a>
+                        <a href="https://localhost:44378/Status/Create">Create Status</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+
+    </div>
+        <button class="btn" id="loadBtn">Add</button>
+        <button class="btn" id="displayBtn">Delete</button>
+
+
+        @section scripts{
+            <script src='@Url.Content("~/Scripts/app.js")'></script>
+        }
